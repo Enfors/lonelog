@@ -19,7 +19,7 @@
 ;; text.
 ;;
 ;; Features include:
-;; - Highlighting for core symbols (@, ?, d:, ->, -=>)
+;; - Highlighting for core symbols (@, ?, d:, ->, =>)
 ;;
 ;; To use this package, add the following to your configuration:
 ;;
