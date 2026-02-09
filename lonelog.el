@@ -119,20 +119,18 @@
       (progn
         (font-lock-add-keywords nil lonelog-font-lock-keywords)
         (font-lock-flush)
-        (message "Lonelog-mode activated."))
+        (message "Lonelog-mode enabled."))
     ;; If OFF:
     (progn
       (font-lock-remove-keywords nil lonelog-font-lock-keywords)
       (font-lock-flush)
-      (message "Lonelog-mode deactivated."))))
+      (message "Lonelog-mode disabled."))))
 
 ;; Hooks:
 
-(add-hook 'lonelog-mode-hook (lambda () (message "Hook was executed.")))
-(add-hook 'lonelog-mode-on-hook (lambda () (message "Lonelog turned on.")))
-(add-hook 'lonelog-mode-off-hook (lambda () (message "Lonelog turned off.")))
-
-(provide 'lonelog)
+;; (add-hook 'lonelog-mode-hook (lambda () (message "Hook was executed.")))
+;; (add-hook 'lonelog-mode-on-hook (lambda () (message "Lonelog turned on.")))
+;; (add-hook 'lonelog-mode-off-hook (lambda () (message "Lonelog turned off.")))
 
 (provide 'lonelog)
 
