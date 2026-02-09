@@ -93,12 +93,12 @@
      (2 'lonelog-mechanics-roll-content-face))
    ;; Oracle and dice result:
    '("\\(->\\)\\s-\\(.*\\)"
-     (1 'lonelog-oracle-and-dice-result-symbol-face t)   ;; t = Override
-     (2 'lonelog-oracle-and-dice-result-content-face t)) ;; t = Override
+     (1 'lonelog-oracle-and-dice-result-symbol-face t)   ; t = Override
+     (2 'lonelog-oracle-and-dice-result-content-face t)) ; t = Override
    ;; Consequence:
-   '("^\\(=>\\)\\s-\\(.*\\)"
-     (1 'lonelog-consequence-symbol-face)
-     (2 'lonelog-consequence-content-face)))
+   '("\\(=>\\)\\s-\\(.*\\)"
+     (1 'lonelog-consequence-symbol-face t)    ; t = Override
+     (2 'lonelog-consequence-content-face t))) ; t = Override
   "Highlighting rules for Lonelog mode.")
 
 ;;; Minor mode itself:

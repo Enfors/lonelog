@@ -4,5 +4,5 @@ d: Mechanics roll -> Oracle/dice result
 => Consequence
 
 @ The party wakes up and heads out to Westhammer Peak.
-d: Hexcrawl roll for 021.011 North of Springhaven: 1d20: 15 -> Find location
+d: Hexcrawl roll for 021.011 North of Springhaven: 1d20: 15 -> Find location => Silver mine
 
