@@ -101,11 +101,11 @@
      (1 'lonelog-action-symbol-face)
      (2 'lonelog-action-content-face))
    ;; Oracle question:
-   '("^\\(\\?\\)\\s-*\\(.*\\)\\(->\\)?"
+   '("^\\(\\?\\)\\s-*\\(.*\\)"
      (1 'lonelog-oracle-question-symbol-face)
      (2 'lonelog-oracle-question-content-face))
    ;; Mechanics roll:
-   '("^\\(d:\\)\\s-*\\(.*\\)\\(->\\)?"
+   '("^\\(d:\\)\\s-*\\(.*\\)"
      (1 'lonelog-mechanics-roll-symbol-face)
      (2 'lonelog-mechanics-roll-content-face))
    ;; Oracle and dice result:
