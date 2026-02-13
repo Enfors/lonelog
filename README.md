@@ -65,4 +65,4 @@ All faces are customizable via `M-x customize-group RET lonelog RET`.
 ## Credits
 
 * **Notation:** The Lonelog system was created by [Loreseed Workshop](https://zeruhur.itch.io/lonelog).
-* **Lonelog-mode for Emacs:** Developed by [Christer Enfors](https://ttrpg-hangout.social/Enfors).
+* **Lonelog-mode for Emacs:** Developed by [Christer Enfors](https://ttrpg-hangout.social/@enfors).
