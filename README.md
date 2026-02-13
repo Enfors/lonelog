@@ -1,6 +1,6 @@
 # lonelog.el
 
-**Lonelog** is an Emacs minor mode which provides syntax highlighting support for the [Lonelog solo RPG notation system](https://zeruhur.itch.io/lonelog).
+**Lonelog-mode** is an Emacs minor mode which provides syntax highlighting support for the [Lonelog solo RPG notation system](https://zeruhur.itch.io/lonelog).
 
 It is designed to **mode-agnostic**, meaning that you (hopefully!) can use it on top of any text-based mode, such as Org-mode (which is what I use it for) and Markdown-mode.
 
@@ -25,7 +25,7 @@ I'm afraid Lonelog isn't on Melpa yet, but the goal is to get it there as soon a
 ### Manual installation
 
 ```bash
-git clone [https://github.com/enfors/lonelog.git](https://github.com/enfors/lonelog.git) ~/.emacs.d/lisp/lonelog
+git clone https://github.com/enfors/lonelog.git ~/.emacs.d/lisp/lonelog
 ```
 
 Then add the following to your `init.el`:
@@ -34,6 +34,12 @@ Then add the following to your `init.el`:
 (add-to-list 'load-path "~/.emacs.d/lisp/lonelog")
 (require 'lonelog)
 ```
+
+## Enabling and disabling lonelog-mode
+
+To turn lonelog-mode on in the current buffer: `M-x lonelog-mode RET`
+
+Do the same to turn it off.
 
 ## Configuration
 
@@ -60,7 +66,7 @@ Lonelog highlights lines based on standard notation prefixes.
 
 ## Customization
 
-All faces are customizable via `M-x customize-group RET lonelog RET`.
+All faces (read: colors) are customizable via `M-x customize-group RET lonelog RET`.
 
 ## Credits
 
