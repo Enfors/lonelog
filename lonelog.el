@@ -97,23 +97,23 @@
 (defvar lonelog-font-lock-keywords
   (list
    ;; Action:
-   '("^\\(@\\)\\s-\\(.*\\)"
+   '("^\\(@\\)\\s-*\\(.*\\)"
      (1 'lonelog-action-symbol-face)
      (2 'lonelog-action-content-face))
    ;; Oracle question:
-   '("^\\(\\?\\)\\s-\\(.*\\)\\(->\\)?"
+   '("^\\(\\?\\)\\s-*\\(.*\\)\\(->\\)?"
      (1 'lonelog-oracle-question-symbol-face)
      (2 'lonelog-oracle-question-content-face))
    ;; Mechanics roll:
-   '("^\\(d:\\)\\s-\\(.*\\)\\(->\\)?"
+   '("^\\(d:\\)\\s-*\\(.*\\)\\(->\\)?"
      (1 'lonelog-mechanics-roll-symbol-face)
      (2 'lonelog-mechanics-roll-content-face))
    ;; Oracle and dice result:
-   '("\\(->\\)\\s-\\(.*\\)"
+   '("\\(->\\)\\s-*\\(.*\\)"
      (1 'lonelog-oracle-and-dice-result-symbol-face t)   ; t = Override
      (2 'lonelog-oracle-and-dice-result-content-face t)) ; t = Override
    ;; Consequence:
-   '("\\(=>\\)\\s-\\(.*\\)"
+   '("\\(=>\\)\\s-*\\(.*\\)"
      (1 'lonelog-consequence-symbol-face t)    ; t = Override
      (2 'lonelog-consequence-content-face t))) ; t = Override
   "Highlighting rules for Lonelog mode.")
