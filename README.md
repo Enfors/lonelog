@@ -1,6 +1,6 @@
 # lonelog.el
 
-**Lonelog-mode** is an Emacs minor mode which provides syntax highlighting support for the [Lonelog solo RPG notation system](https://zeruhur.itch.io/lonelog).
+**Lonelog-mode** is an Emacs minor mode released under the GPL v3 license which provides syntax highlighting support for the [Lonelog solo RPG notation system](https://zeruhur.itch.io/lonelog).
 
 It is designed to **mode-agnostic**, meaning that you (hopefully!) can use it on top of any text-based mode, such as Org-mode (which is what I use it for) and Markdown-mode.
 
