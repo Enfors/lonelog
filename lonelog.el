@@ -30,50 +30,67 @@
 
 ;;; Faces:
 
+;; Face group
+
+(defgroup lonelog nil
+  "Support for Lonelog solo RPG notation."
+  :group 'games
+  :prefix "lonelog-")
+
 ;; Action
 (defface lonelog-action-symbol-face
   '((t :foreground "#045CCF" :weight bold))
-  "Face for the Lonelog player action symbol.")
+  "Face for the Lonelog player action symbol (the \"@\")."
+  :group 'lonelog)
 
 (defface lonelog-action-content-face
   '((t :foreground "#A3CBFF"))
-  "Face for the Lonelog player action.")
+  "Face for the Lonelog player action (the part that comes after the \"@\")."
+  :group 'lonelog)
 
 ;; Oracle question
 (defface lonelog-oracle-question-symbol-face
   '((t :foreground "#B637CC" :weight bold))
-  "Face for the Lonelog oracle question symbol.")
+  "Face for the Lonelog oracle question symbol (the \"?\")."
+  :group 'lonelog)
 
 (defface lonelog-oracle-question-content-face
   '((t :foreground "#BC73C9"))
-  "Face for the Lonelog oracle question itself.")
+  "Face for the Lonelog oracle question itself (the part that comes after the \"?\")."
+  :group 'lonelog)
 
 ;; Mechanics roll
 (defface lonelog-mechanics-roll-symbol-face
   '((t :foreground "#3E991D" :weight bold))
-  "Face for the Lonelog mechanics roll symbol.")
+  "Face for the Lonelog mechanics roll symbol (the \"d:\")."
+  :group 'lonelog)
 
 (defface lonelog-mechanics-roll-content-face
   '((t :foreground "#7BB865"))
-  "Face for the Lonelog mehcanics roll itself.")
+  "Face for the Lonelog mechanics roll itself (the part that comes after the \"d:\")."
+  :group 'lonelog)
 
 ;; Oracle / dice result
 (defface lonelog-oracle-and-dice-result-symbol-face
   '((t :foreground "#e8fc05" :weight bold))
-  "Face for the Lonelog oracle and dice result symbol.")
+  "Face for the Lonelog oracle and dice result symbol (the \"->\")."
+  :group 'lonelog)
 
 (defface lonelog-oracle-and-dice-result-content-face
   '((t :foreground "#e8fc80"))
-  "Face for the Lonelog oracle and dice result itself.")
+  "Face for the Lonelog oracle and dice result itself (the part that comes after the \"->\")."
+  :group 'lonelog)
 
 ;; Consequence
 (defface lonelog-consequence-symbol-face
   '((t :foreground "#FF7D9B" :weight bold))
-  "Face for the Lonelog consequence symbol.")
+  "Face for the Lonelog consequence symbol (the \"=>\")."
+  :group 'lonelog)
 
 (defface lonelog-consequence-content-face
   '((t :foreground "#FFA0C0"))
-  "Face for the Lonelog consequence itself..")
+  "Face for the Lonelog consequence itself (the part that comes after the \"=>\")."
+  :group 'lonelog)
 
 ;; Face rules:
 
@@ -107,6 +124,7 @@
   "Toggles local `lonelog-mode'."
   :init-value nil
   :global nil
+  :group 'lonelog
   :lighter " Lonelog"
   :keymap
   (list (cons (kbd "C-c C-d .")
