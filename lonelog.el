@@ -151,6 +151,13 @@ This is the part that comes after the \"=>\"."
      (2 'lonelog-consequence-content-face t))) ; t = Override
   "Highlighting rules for Lonelog mode.")
 
+;;; Helper functions:
+
+(defun lonelog-insert-date ()
+  "Insert the current date in Lonelog format."
+  (interactive)
+  (insert (format-time-string "[%Y-%m-%d]")))
+
 ;;; Minor mode itself:
 
 ;;;###autoload
@@ -171,10 +178,9 @@ Lonelog symbols:
   :group 'lonelog
   :lighter " Lonelog"
   :keymap
-  (list (cons (kbd "C-c C-d .")
-              (lambda ()
-                (interactive)
-                (message "Lonelog key binding used."))))
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "C-c C-d .") 'lonelog-insert-date)
+    map)
 
   (if lonelog-mode
       ;; If ON:
