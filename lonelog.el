@@ -53,137 +53,88 @@
 
 ;;; Faces:
 
-;; Face group
+;;; Faces:
 
 (defgroup lonelog nil
   "Support for Lonelog solo RPG notation."
   :group 'games
   :prefix "lonelog-")
 
-;; Action
-(defface lonelog-action-symbol-face
-  '(
-    (((class color) (background dark))
-     :foreground "#045ccf" :weight bold)
-    (((class color) (background light))
-     :foreground "#003f91" :weight bold)
-    (t :weight bold)
-    )
+;; The Macro Definition
+(defmacro lonelog-define-face (name dark-hex light-hex docstring &optional bold)
+  "Define a Lonelog face with NAME, using DARK-HEX and LIGHT-HEX colors.
+If BOLD is non-nil, the face will be bold in all themes."
+  (let ((weight-spec (if bold '(:weight bold) '())))
+    `(defface ,name
+       '(
+         ;; Dark Background
+         (((class color) (background dark))
+          :foreground ,dark-hex ,@weight-spec)
+         ;; Light Background
+         (((class color) (background light))
+          :foreground ,light-hex ,@weight-spec)
+         ;; Fallback (Terminal / Monochrome)
+         (t ,@weight-spec)
+         )
+       ,docstring
+       :group 'lonelog)))
+
+;; --- Face Definitions ---
+
+;; Action (@)
+(lonelog-define-face lonelog-action-symbol-face
+  "#045ccf" "#003f91"
   "Foreground color for the Lonelog action symbol (the \"@\")."
-  :group 'lonelog)
+  t) ;; Bold
 
-(defface lonelog-action-content-face
-  '(
-    (((class color) (background dark))
-     :foreground "#a3cbff")
-    (((class color) (background light))
-     :foreground "#1e4e8c")
-    (t :weight bold)
-    )
+(lonelog-define-face lonelog-action-content-face
+  "#a3cbff" "#1e4e8c"
   "Foreground color for the Lonelog action.
+This is the part that comes after the \"@\".")
 
-This is the part that comes after the \"@\"."
-  :group 'lonelog)
-
-;; Oracle question
-(defface lonelog-oracle-question-symbol-face
-  '(
-    (((class color) (background dark))
-     :foreground "#b637cc" :weight bold)
-    (((class color) (background light))
-     :foreground "#86d207a")
-    (t :weight bold)
-    )
+;; Oracle (?)
+(lonelog-define-face lonelog-oracle-question-symbol-face
+  "#b020a0" "#6d207a"
   "Foreground color for the Lonelog oracle question symbol (the \"?\")."
-  :group 'lonelog)
+  t) ;; Bold
 
-(defface lonelog-oracle-question-content-face
-  '(
-    (((class color) (background dark))
-     :foreground "#bc73c9")
-    (((class color) (background light))
-     :foreground "#5e3fd3" :weight bold)
-    (t :weight bold)
-    )
+(lonelog-define-face lonelog-oracle-question-content-face
+  "#f490ec" "#5e3fd3"
   "Foreground color for the Lonelog oracle question itself.
+This is the part that comes after the \"?\".")
 
-This is the part that comes after the \"?\"."
-  :group 'lonelog)
-
-;; Mechanics roll
-(defface lonelog-mechanics-roll-symbol-face
-  '(
-    (((class color) (background dark))
-     :foreground "#3e991d" :weight bold)
-    (((class color) (background light))
-     :foreground "#2e7d12" :weight bold)
-    (t :weight bold)
-    )
+;; Mechanics (d:)
+(lonelog-define-face lonelog-mechanics-roll-symbol-face
+  "#308018" "#2e7d12"
   "Foreground color for the Lonelog mechanics roll symbol (the \"d:\")."
-  :group 'lonelog)
+  t) ;; Bold
 
-(defface lonelog-mechanics-roll-content-face
-  '(
-    (((class color) (background dark))
-     :foreground "#58c024")
-    (((class color) (background light))
-     :foreground "#206009")
-    (t :weight bold)
-    )
+(lonelog-define-face lonelog-mechanics-roll-content-face
+  "#60ff28" "#206009"
   "Foreground color for the Lonelog mechanics roll itself.
+This is the part that comes after the \"d:\".")
 
-This is the part that comes after the \"d:\"."
-  :group 'lonelog)
-
-;; Oracle / dice result
-(defface lonelog-oracle-and-dice-result-symbol-face
-  '(
-    (((class color) (background dark))
-     :foreground "#e8fc05" :weight bold)
-    (((class color) (background light))
-     :foreground "#99a600")
-    (t :weight bold)
-    )
+;; Result (->)
+(lonelog-define-face lonelog-oracle-and-dice-result-symbol-face
+  "#a09005" "#99a600"
   "Foreground color for the Lonelog oracle/dice symbol (the \"->\")."
-  :group 'lonelog)
+  t) ;; Bold
 
-(defface lonelog-oracle-and-dice-result-content-face
-  '(
-    (((class color) (background dark))
-     :foreground "#e8fc05")
-    (((class color) (background light))
-     :foreground "#708600")
-    (t :weight bold)
-    )
+(lonelog-define-face lonelog-oracle-and-dice-result-content-face
+  "#e8fc05" "#708600"
   "Foreground color for the Lonelog oracle/dice result itself.
+This is the part that comes after the \"->\".")
 
-This is the part that comes after the \"->\"."
-  :group 'lonelog)
-
-;; Consequence
-(defface lonelog-consequence-symbol-face
-  '(
-    (((class color) (background dark))
-     :foreground "#ff5010" :weight bold)
-    (((class color) (background light))
-     :foreground "#936400" :weight bold)
-    (t :weight bold)
-    )
+;; Consequence (=>)
+(lonelog-define-face lonelog-consequence-symbol-face
+  "#c04008" "#936400"
   "Foreground color for the Lonelog consequence symbol (the \"=>\")."
-  :group 'lonelog)
+  t) ;; Bold
 
-(defface lonelog-consequence-content-face
-  '(
-    (((class color) (background dark))
-     :foreground "#ffa050")
-    (((class color) (background light))
-     :foreground "#b37400")
-    (t :weight bold)
-    )
+(lonelog-define-face lonelog-consequence-content-face
+  "#ffa050" "#b37400"
   "Foreground color for the Lonelog consequence itself.
-
-This is the part that comes after the \"=>\"."
-  :group 'lonelog)
+This is the part that comes after the \"=>\".")
 
 ;; Face rules:
 
