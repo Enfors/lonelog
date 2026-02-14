@@ -68,8 +68,7 @@ If BOLD is non-nil, the face will be bold in all themes."
          (((class color) (background light))
           :foreground ,light-hex ,@weight-spec)
          ;; Fallback (Terminal / Monochrome)
-         (t ,@weight-spec)
-         )
+         (t ,@weight-spec))
        ,docstring
        :group 'lonelog)))
 
