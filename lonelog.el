@@ -62,12 +62,24 @@
 
 ;; Action
 (defface lonelog-action-symbol-face
-  '((t :foreground "#045CCF" :weight bold))
+  '(
+    (((class color) (background dark))
+     :foreground "#045ccf" :weight bold)
+    (((class color) (background light))
+     :foreground "#003f91" :weight bold)
+    (t :weight bold)
+    )
   "Foreground color for the Lonelog action symbol (the \"@\")."
   :group 'lonelog)
 
 (defface lonelog-action-content-face
-  '((t :foreground "#A3CBFF"))
+  '(
+    (((class color) (background dark))
+     :foreground "#a3cbff")
+    (((class color) (background light))
+     :foreground "#1e4e8c")
+    (t :weight bold)
+    )
   "Foreground color for the Lonelog action.
 
 This is the part that comes after the \"@\"."
@@ -75,12 +87,24 @@ This is the part that comes after the \"@\"."
 
 ;; Oracle question
 (defface lonelog-oracle-question-symbol-face
-  '((t :foreground "#B637CC" :weight bold))
+  '(
+    (((class color) (background dark))
+     :foreground "#b637cc" :weight bold)
+    (((class color) (background light))
+     :foreground "#86d207a")
+    (t :weight bold)
+    )
   "Foreground color for the Lonelog oracle question symbol (the \"?\")."
   :group 'lonelog)
 
 (defface lonelog-oracle-question-content-face
-  '((t :foreground "#BC73C9"))
+  '(
+    (((class color) (background dark))
+     :foreground "#bc73c9")
+    (((class color) (background light))
+     :foreground "#5e3fd3" :weight bold)
+    (t :weight bold)
+    )
   "Foreground color for the Lonelog oracle question itself.
 
 This is the part that comes after the \"?\"."
@@ -88,12 +112,24 @@ This is the part that comes after the \"?\"."
 
 ;; Mechanics roll
 (defface lonelog-mechanics-roll-symbol-face
-  '((t :foreground "#3E991D" :weight bold))
+  '(
+    (((class color) (background dark))
+     :foreground "#3e991d" :weight bold)
+    (((class color) (background light))
+     :foreground "#2e7d12" :weight bold)
+    (t :weight bold)
+    )
   "Foreground color for the Lonelog mechanics roll symbol (the \"d:\")."
   :group 'lonelog)
 
 (defface lonelog-mechanics-roll-content-face
-  '((t :foreground "#7BB865"))
+  '(
+    (((class color) (background dark))
+     :foreground "#58c024")
+    (((class color) (background light))
+     :foreground "#206009")
+    (t :weight bold)
+    )
   "Foreground color for the Lonelog mechanics roll itself.
 
 This is the part that comes after the \"d:\"."
@@ -101,12 +137,24 @@ This is the part that comes after the \"d:\"."
 
 ;; Oracle / dice result
 (defface lonelog-oracle-and-dice-result-symbol-face
-  '((t :foreground "#e8fc05" :weight bold))
+  '(
+    (((class color) (background dark))
+     :foreground "#e8fc05" :weight bold)
+    (((class color) (background light))
+     :foreground "#99a600")
+    (t :weight bold)
+    )
   "Foreground color for the Lonelog oracle/dice symbol (the \"->\")."
   :group 'lonelog)
 
 (defface lonelog-oracle-and-dice-result-content-face
-  '((t :foreground "#e8fc80"))
+  '(
+    (((class color) (background dark))
+     :foreground "#e8fc05")
+    (((class color) (background light))
+     :foreground "#708600")
+    (t :weight bold)
+    )
   "Foreground color for the Lonelog oracle/dice result itself.
 
 This is the part that comes after the \"->\"."
@@ -114,12 +162,24 @@ This is the part that comes after the \"->\"."
 
 ;; Consequence
 (defface lonelog-consequence-symbol-face
-  '((t :foreground "#FF7D9B" :weight bold))
+  '(
+    (((class color) (background dark))
+     :foreground "#ff5010" :weight bold)
+    (((class color) (background light))
+     :foreground "#936400" :weight bold)
+    (t :weight bold)
+    )
   "Foreground color for the Lonelog consequence symbol (the \"=>\")."
   :group 'lonelog)
 
 (defface lonelog-consequence-content-face
-  '((t :foreground "#FFA0C0"))
+  '(
+    (((class color) (background dark))
+     :foreground "#ffa050")
+    (((class color) (background light))
+     :foreground "#b37400")
+    (t :weight bold)
+    )
   "Foreground color for the Lonelog consequence itself.
 
 This is the part that comes after the \"=>\"."
