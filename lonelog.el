@@ -43,15 +43,8 @@
 ;; Customization:
 ;;  Run M-x customize-group RET lonelog RET to change colors.
 ;;
-;; Shortcuts for setting colors depending on your background color:
-;;
-;;   (lonelog-light-mode)
-;;   (lonelog-dark-mode)
-
 
 ;;; Code:
-
-;;; Faces:
 
 ;;; Faces:
 
@@ -154,11 +147,11 @@ This is the part that comes after the \"=>\".")
      (2 'lonelog-mechanics-roll-content-face))
    ;; Oracle and dice result:
    '("\\(->\\)\\s-*\\(.*\\)"
-     (1 'lonelog-oracle-and-dice-result-symbol-face t)   ; t = Override
+     (1 'lonelog-oracle-and-dice-result-symbol-face t)    ; t = Override
      (2 'lonelog-oracle-and-dice-result-content-face t)) ; t = Override
    ;; Consequence:
    '("\\(=>\\)\\s-*\\(.*\\)"
-     (1 'lonelog-consequence-symbol-face t)    ; t = Override
+     (1 'lonelog-consequence-symbol-face t)     ; t = Override
      (2 'lonelog-consequence-content-face t))) ; t = Override
   "Highlighting rules for Lonelog mode.")
 
@@ -204,12 +197,6 @@ Lonelog symbols:
       (font-lock-remove-keywords nil lonelog-font-lock-keywords)
       (font-lock-flush)
       (message "Lonelog-mode disabled."))))
-
-;; Hooks:
-
-;; (add-hook 'lonelog-mode-hook (lambda () (message "Hook was executed.")))
-;; (add-hook 'lonelog-mode-on-hook (lambda () (message "Lonelog turned on.")))
-;; (add-hook 'lonelog-mode-off-hook (lambda () (message "Lonelog turned off.")))
 
 (provide 'lonelog)
 
