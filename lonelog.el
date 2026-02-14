@@ -1,4 +1,4 @@
-;;;; lonelog.el --- Solo RPG notation support  -*- lexical-binding: t; -*-
+;;; lonelog.el --- Solo RPG notation support  -*- lexical-binding: t; -*-
 
 ;; Author: Christer Enfors <christer.enfors@gmail.com>
 ;; Maintainer: Christer Enfors <christer.enfors@gmail.com>
@@ -39,6 +39,15 @@
 ;;
 ;;   (require 'lonelog)
 ;;   (add-hook 'text-mode-hook 'lonelog-mode)
+;;
+;; Customization:
+;;  Run M-x customize-group RET lonelog RET to change colors.
+;;
+;; Shortcuts for setting colors depending on your background color:
+;;
+;;   (lonelog-light-mode)
+;;   (lonelog-dark-mode)
+
 
 ;;; Code:
 
@@ -54,56 +63,66 @@
 ;; Action
 (defface lonelog-action-symbol-face
   '((t :foreground "#045CCF" :weight bold))
-  "Face for the Lonelog player action symbol (the \"@\")."
+  "Foreground color for the Lonelog action symbol (the \"@\")."
   :group 'lonelog)
 
 (defface lonelog-action-content-face
   '((t :foreground "#A3CBFF"))
-  "Face for the Lonelog player action (the part that comes after the \"@\")."
+  "Foreground color for the Lonelog action.
+
+This is the part that comes after the \"@\"."
   :group 'lonelog)
 
 ;; Oracle question
 (defface lonelog-oracle-question-symbol-face
   '((t :foreground "#B637CC" :weight bold))
-  "Face for the Lonelog oracle question symbol (the \"?\")."
+  "Foreground color for the Lonelog oracle question symbol (the \"?\")."
   :group 'lonelog)
 
 (defface lonelog-oracle-question-content-face
   '((t :foreground "#BC73C9"))
-  "Face for the Lonelog oracle question itself (the part that comes after the \"?\")."
+  "Foreground color for the Lonelog oracle question itself.
+
+This is the part that comes after the \"?\"."
   :group 'lonelog)
 
 ;; Mechanics roll
 (defface lonelog-mechanics-roll-symbol-face
   '((t :foreground "#3E991D" :weight bold))
-  "Face for the Lonelog mechanics roll symbol (the \"d:\")."
+  "Foreground color for the Lonelog mechanics roll symbol (the \"d:\")."
   :group 'lonelog)
 
 (defface lonelog-mechanics-roll-content-face
   '((t :foreground "#7BB865"))
-  "Face for the Lonelog mechanics roll itself (the part that comes after the \"d:\")."
+  "Foreground color for the Lonelog mechanics roll itself.
+
+This is the part that comes after the \"d:\"."
   :group 'lonelog)
 
 ;; Oracle / dice result
 (defface lonelog-oracle-and-dice-result-symbol-face
   '((t :foreground "#e8fc05" :weight bold))
-  "Face for the Lonelog oracle and dice result symbol (the \"->\")."
+  "Foreground color for the Lonelog oracle/dice symbol (the \"->\")."
   :group 'lonelog)
 
 (defface lonelog-oracle-and-dice-result-content-face
   '((t :foreground "#e8fc80"))
-  "Face for the Lonelog oracle and dice result itself (the part that comes after the \"->\")."
+  "Foreground color for the Lonelog oracle/dice result itself.
+
+This is the part that comes after the \"->\"."
   :group 'lonelog)
 
 ;; Consequence
 (defface lonelog-consequence-symbol-face
   '((t :foreground "#FF7D9B" :weight bold))
-  "Face for the Lonelog consequence symbol (the \"=>\")."
+  "Foreground color for the Lonelog consequence symbol (the \"=>\")."
   :group 'lonelog)
 
 (defface lonelog-consequence-content-face
   '((t :foreground "#FFA0C0"))
-  "Face for the Lonelog consequence itself (the part that comes after the \"=>\")."
+  "Foreground color for the Lonelog consequence itself.
+
+This is the part that comes after the \"=>\"."
   :group 'lonelog)
 
 ;; Face rules:
@@ -134,8 +153,19 @@
 
 ;;; Minor mode itself:
 
+;;;###autoload
 (define-minor-mode lonelog-mode
-  "Toggles local `lonelog-mode'."
+  "Minor mode for the Lonelog solo RPG notation format.
+
+When enabled, this mode provides syntax highlighting for the five core
+Lonelog symbols:
+ @   Action
+ ?   Oracle
+ d:  Mechanics roll
+ ->  Result
+ =>  Consequence
+
+\\{lonelog-mode-map}"
   :init-value nil
   :global nil
   :group 'lonelog
