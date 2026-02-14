@@ -156,7 +156,7 @@ This is the part that comes after the \"=>\"."
 (defun lonelog-insert-date ()
   "Insert the current date in Lonelog format."
   (interactive)
-  (insert (format-time-string "[%Y-%m-%d]")))
+  (insert (format-time-string "[%Y-%m-%d] ")))
 
 ;;; Minor mode itself:
 
