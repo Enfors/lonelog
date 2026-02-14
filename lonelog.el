@@ -56,6 +56,7 @@
 ;; The Macro Definition
 (defmacro lonelog-define-face (name dark-hex light-hex docstring &optional bold)
   "Define a Lonelog face with NAME, using DARK-HEX and LIGHT-HEX colors.
+DOCSTRING provides the documentation for the face.
 If BOLD is non-nil, the face will be bold in all themes."
   (let ((weight-spec (if bold '(:weight bold) '())))
     `(defface ,name
