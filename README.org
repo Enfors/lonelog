@@ -1,0 +1,51 @@
+Lonelog is a minor mode that provides syntax highlight and support
+for the "Lonelog" solo RPG notation system, designed by Loreseed
+Workshop: https://zeruhur.itch.io/lonelog
+The lonelog minor mode is designed to be agnostic to the underlying
+major mode, working equally well in org-mode, Markdown, or plain
+text.
+
+** Features
+
+- Highlighting for core symbols (@, ?, d:, ->, =>)
+- Highlighting for tags ([N:Jonah|friendly|uninjured])
+- Tags are optionally tracked in a separate HUD window
+
+** Installation
+
+*** MELPA
+
+To use this package, add the following to your configuration:
+
+#+begin_src elisp
+  (use-package lonelog
+    :ensure t)
+#+end_src
+
+*** Manual installation
+
+First, you have to clone the repo:
+
+#+begin_src bash
+  git clone https://github.com/Enfors/lonelog.git
+#+end_src
+
+Then, you have to tell Emacs where the =lonelog= directory you just cloned is located:
+
+#+begin_src elisp
+  (add-to-list 'load-path "/path/to/lonelog/directory")
+  (require 'lonelog)
+#+end_src
+
+** Using Lonelog-mode
+
+To start =lonelog-mode= in a buffer, type:
+
+=M-x lonelog-mode=
+
+Type the same thing to turn it off. When you turn it on, a side window will open which will show you the most recent version of each =[tag]= you have in your buffer (if any). You can close that window with =lonelog-toggle-hud= which is bound to =C-c , h= by default. If you don't want it to open by default at all, you can customize the value of =lonelog-auto-open-hud=.
+
+** Customization
+
+Run =M-x customize-group RET lonelog RET= to change colors, window
+widths, or the command prefix. 

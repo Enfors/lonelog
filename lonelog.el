@@ -35,14 +35,23 @@
 ;; Features include:
 ;; - Highlighting for core symbols (@, ?, d:, ->, =>)
 ;; - Highlighting for tags ([N:Jonah|friendly|uninjured])
+;; - Tags are optionally tracked in a separate HUD window
 ;;
 ;; To use this package, add the following to your configuration:
 ;;
 ;;   (require 'lonelog)
 ;;   (add-hook 'text-mode-hook 'lonelog-mode)
 ;;
+;; Keybindings:
+;; All commands are placed behind a customizable prefix, which defaults
+;; to C-c , (Control-c followed by a comma).
+;;
+;;   C-c , h  - Toggle the tag tracking HUD
+;;   C-c , d  - Insert the current date
+
 ;; Customization:
-;;  Run M-x customize-group RET lonelog RET to change colors.
+;; Run M-x customize-group RET lonelog RET to change colors, window
+;; widths, or the command prefix.
 ;;
 
 ;;; Code:
@@ -51,12 +60,17 @@
 
 (defvar lonelog-mode)
 
-;;; Variables:
+;;; Customizable variables:
 
 (defgroup lonelog nil
   "Support for Lonelog solo RPG notation."
   :group 'games
   :prefix "lonelog-")
+
+(defcustom lonelog-command-prefix (kbd "C-c ,")
+  "Prefix key sequence for Lonelog mode commands."
+  :type 'key-sequence
+  :group 'lonelog)
 
 (defcustom lonelog-auto-open-hud t
   "If t, Lonelog-mode will auto-open the tag tracking buffer when started."
@@ -67,6 +81,13 @@
   "How many seconds of idle time before the HUD automatically updates."
   :type 'number
   :group 'lonelog)
+
+(defcustom lonelog-hud-width 35
+  "The width in characters of the Lonelog HUD window."
+  :type 'number
+  :group 'lonelog)
+
+;; Other variables:
 
 (defvar-local lonelog--hud-timer nil
   "Buffer-local variable to store the active HUD timer for this session.")
@@ -246,6 +267,40 @@ Returns a chronologically ordered list of tag strings."
 
 ;;; Tag HUD updater
 
+(defun lonelog-toggle-hud ()
+  "Toggle the visibility of the Lonelog HUD side-window."
+  (interactive)
+  (let ((hud-win (lonelog--get-visible-hud-window)))
+    (if hud-win
+        (delete-window hud-win)
+      (lonelog-update-hud))))
+
+(defun lonelog--any-active-sessions-p (&optional ignore-buf)
+  "Return t if there are live game buffers, ignoring IGNORE-BUF."
+  (seq-some (lambda (buf)
+              (and (not (eq buf ignore-buf)) ; Ignore the dying buffer
+                   (buffer-local-value 'lonelog-mode buf)
+                   (not (string-match-p "^\\*Lonelog HUD"
+                                        (buffer-name buf)))))
+            (buffer-list)))
+
+(defun lonelog--cleanup-hud-if-last (&optional ignore-buf)
+  "Close the HUD window and kill HUD buffers if no lonelog sessions remain.
+IGNORE-BUF is ignored in the tally."
+  (unless (lonelog--any-active-sessions-p ignore-buf)
+    ;; 1. Close the window if it's currently on screen
+    (let ((hud-win (lonelog--get-visible-hud-window)))
+      (when hud-win
+        (delete-window hud-win)))
+    ;; 2. Silently assassinate all orphaned HUD buffers
+    (dolist (buf (buffer-list))
+      (when (string-match-p "^\\*Lonelog HUD" (buffer-name buf))
+        (kill-buffer buf)))))
+
+(defun lonelog--cleanup-on-kill ()
+  "Hook function to clean up the HUD, ignoring the dying buffer."
+  (lonelog--cleanup-hud-if-last (current-buffer)))
+
 (defun lonelog--get-visible-hud-window ()
   "Return the window displaying a Lonelog HUD, if one exists."
   (seq-find (lambda (win)
@@ -289,14 +344,14 @@ Returns a chronologically ordered list of tag strings."
   (interactive)
   ;; If we don't have a unique HUD name for this buffer yet, make one!
   (unless lonelog--hud-buffer-name
-    (setq lonelog--hud-buffer-name (format "Lonelog HUD: %s*" (buffer-name))))
+    (setq lonelog--hud-buffer-name (format "*Lonelog HUD: %s*" (buffer-name))))
   (let ((tags (lonelog-extract-latest-tags))
         (hud-buffer (get-buffer-create lonelog--hud-buffer-name)))
     (lonelog--draw-hud-contents hud-buffer tags)
     (display-buffer hud-buffer
-                    '(display-buffer-in-side-window
+                    `(display-buffer-in-side-window
                       . ((side . right)
-                         (window-width . 35))))))
+                         (window-width . ,lonelog-hud-width))))))
 
 (defun lonelog--update-hud-background (source-buffer)
   "Silently update the HUD for SOURCE-BUFFER, but only if it's visible."
@@ -337,8 +392,16 @@ Tags are also tracked in a side window:
   :group 'lonelog
   :lighter " Lonelog"
   :keymap
-  (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "C-c C-d .") 'lonelog-insert-date)
+  (let ((map (make-sparse-keymap))
+        (cmd-map (make-sparse-keymap)))
+
+    ;; 1. Populate the dedicated command map
+    (define-key cmd-map (kbd "d") #'lonelog-insert-date)
+    (define-key cmd-map (kbd "h") #'lonelog-toggle-hud)
+
+    ;; Attach the prefix map to the user's chosen shortcut
+    (define-key map lonelog-command-prefix cmd-map)
+
     map)
 
   (if lonelog-mode
@@ -350,13 +413,17 @@ Tags are also tracked in a side window:
         ;; Check if the buffer name starts with "*Lonelog HUD"
         (unless (string-match-p "^\\*Lonelog HUD" (buffer-name))
           ;; Generate the unique HUD name for this buffer
-          (setq lonelog--hud-buffer-name (format "*Lonelog HUD: %s"
+          (setq lonelog--hud-buffer-name (format "*Lonelog HUD: %s*"
                                                  (buffer-name)))
           ;; Start the timer, and hand it the current game buffer.
           (setq lonelog--hud-timer
                 (run-with-idle-timer lonelog-hud-update-delay t
                                      #'lonelog--update-hud-background
                                      (current-buffer)))
+
+          ;; Attach the cleanup check to this buffer's death event.
+          ;; The last `t' makes it buffer-local.
+          (add-hook 'kill-buffer-hook #'lonelog--cleanup-on-kill nil t)
           ;; Handle auto-start
           (when lonelog-auto-open-hud
             (lonelog-update-hud)))
@@ -370,6 +437,14 @@ Tags are also tracked in a side window:
       (when lonelog--hud-timer
         (cancel-timer lonelog--hud-timer)
         (setq lonelog--hud-timer nil))
+
+      ;; Remove our kill-buffer hook hook so it doesn't fire unnecessarily
+      ;; The last `t' makes it buffer-local.
+      (remove-hook 'kill-buffer-hook #'lonelog--cleanup-on-kill t)
+
+      ;; Run the cleanup check
+      (lonelog--cleanup-hud-if-last)
+      
       (message "Lonelog-mode disabled."))))
 
 (add-hook 'window-selection-change-functions
