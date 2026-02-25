@@ -3,7 +3,7 @@
 ;; Author: Christer Enfors <christer.enfors@gmail.com>
 ;; Maintainer: Christer Enfors <christer.enfors@gmail.com>
 ;; Created: 2026
-;; Version: 0.1.0
+;; Version: 0.2.0
 ;; Package-Requires: ((emacs "27.1"))
 ;; Keywords: games, convenience, wp
 ;; URL: https://github.com/enfors/lonelog
